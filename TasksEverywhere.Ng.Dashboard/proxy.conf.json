@@ -1,0 +1,12 @@
+{
+  "/api/*": {
+    "target":  {
+      "host": "185.58.192.19",
+      "protocol": "http:",
+      "port": 9092
+    },
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "info"
+  }
+}

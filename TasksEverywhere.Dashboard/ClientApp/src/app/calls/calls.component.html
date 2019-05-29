@@ -1,0 +1,36 @@
+<h1>Elenco Jobs</h1>
+
+<p *ngIf="!calls"><em>Loading...</em></p>
+<div class="row">
+  <div class="col-md-12">
+    <a class="btn btn-primary" [routerLink]="['/jobs', clientId]">Indietro</a>
+  </div>
+</div>
+<br />
+<table class='table' *ngIf="calls">
+<thead>
+  <tr>
+    <th>ID istanza</th>
+    <th>Partito alle</th>
+    <th>Terminato alle</th>
+    <th>Prossima partenza</th>
+    <td>Error</td>
+    <td></td>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let call of calls">
+    <td>{{ call.fireInstenceID }}</td>
+    <td>{{ call.startedAt }}</td>
+    <td>{{ call.endedAt }}</td>
+    <td>{{ call.nextStart }}</td>
+    <td>
+      <span class="glyphicon glyphicon-ok-sign" *ngIf="!call.error" style="color: forestgreen" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-alert" *ngIf="call.error" style="color: orangered" aria-hidden="true"></span>
+    </td>
+    <td><a class="btn btn-primary" *ngIf="call.error">Errore</a></td>
+  </tr>
+</tbody>
+</table>
+
+

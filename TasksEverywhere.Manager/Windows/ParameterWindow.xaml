@@ -1,0 +1,19 @@
+﻿<Window x:Class="ICeQuartScheduler.Manager.Windows.ParameterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ICeQuartScheduler.Manager.Windows"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        Title="ParameterWindow" Height="450" Width="800"
+        Icon="..\IceQuartzIcon.ico">
+    <Grid>
+        <ComboBox Name="cbParamType" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120" IsEditable="False" SelectionChanged="CbParamType_SelectionChanged"/>
+        <Grid Margin="0,43,0,68" >
+            <StackPanel Name="stackpanel" Margin="10,0" />
+        </Grid>
+        <Button Content="Conferma" Name="btnConfirm" Click="BtnConfirm_Click"  HorizontalAlignment="Left" Margin="681,371,0,-41" VerticalAlignment="Top" Width="101"/>
+        <Button Content="Annulla" Name="btnAbort" Click="BtnAbort_Click"  HorizontalAlignment="Left" Margin="591,371,0,-41" VerticalAlignment="Top" Width="85"/>
+    </Grid>
+</Window>

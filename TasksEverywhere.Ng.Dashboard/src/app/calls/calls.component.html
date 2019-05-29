@@ -1,0 +1,37 @@
+
+<app-loading [context]='context'></app-loading>
+<div *ngIf="(calls | async) && (calls | async).length > 0"  class="col-md-12">
+  <mdb-card style="cursor:pointer"  style="height:700px; overflow: auto">
+    <mdb-card-body style="height:700px; overflow: auto">
+      <mdb-card-title *ngIf="job" >
+        <h5>{{job.Key}}</h5>
+      </mdb-card-title>
+      <table  mdbTable scope="col" striped="true" hover="true" small="true">
+        <thead>
+          <tr>
+            <th>ID istanza</th>
+            <th>Partito alle</th>
+            <th>Terminato alle</th>
+            <th>Prossima partenza</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr mdbTableCol *ngFor="let call of calls | async">
+            <td >{{ call.FireInstenceID }}</td>
+            <td>{{ call.StartedAt | date:'EEEE d, MMM, y, h:mm a' }}</td>
+            <td>{{ call.EndedAt | date:'EEEE d, MMM, y, h:mm a' }}</td>
+            <td>{{ call.NextStart | date:'EEEE d, MMM, y, h:mm a' }}</td>
+            <td>
+              <mdb-icon fas icon='check' *ngIf="!call.Error" style="color: forestgreen" ></mdb-icon>
+              <mdb-icon fas icon='exclamation-triangle' *ngIf="call.Error" style="color: orangered"></mdb-icon>
+            </td>
+            <td><a class="btn btn-primary" *ngIf="call.Error">Errore</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </mdb-card-body>
+  </mdb-card>
+</div>
+

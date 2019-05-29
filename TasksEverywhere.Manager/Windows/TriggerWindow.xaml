@@ -1,0 +1,58 @@
+﻿<Window x:Class="ICeQuartScheduler.Manager.Windows.TriggerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ICeQuartScheduler.Manager.Windows"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        Title="TriggerWindow" Height="450" Width="800"
+        Icon="..\IceQuartzIcon.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="46*"/>
+            <RowDefinition Height="37*"/>
+            <RowDefinition Height="140*"/>
+            <RowDefinition Height="54*"/>
+            <RowDefinition Height="142*"/>
+        </Grid.RowDefinitions>
+        <CheckBox Name="chkActive" Content="Attivo" HorizontalAlignment="Left" Margin="10,4,0,0"  VerticalAlignment="Top" Height="18" Width="54" Grid.Row="1" IsChecked="True"/>
+        <Label Content="Data Inizio" HorizontalAlignment="Left" Margin="119,4,0,0"  VerticalAlignment="Top" Width="73" Height="26" Grid.Row="1"/>
+        <DatePicker Name="dtStartDate" HorizontalAlignment="Left" Margin="191,2,0,0"  VerticalAlignment="Top" Width="120" Height="25" Grid.Row="1"  />
+        <TextBox Name="txtStartHour" HorizontalAlignment="Left" Height="23" Margin="375,4,0,0"  TextWrapping="Wrap" Text="HH:mm" VerticalAlignment="Top" Width="120" PreviewTextInput="NumberValidationTextBox" Grid.Row="1"/>
+        <RadioButton Name="rbDaily" Content="Giornaliero" HorizontalAlignment="Left" Margin="10,6,0,0"  VerticalAlignment="Top" GroupName="Tipo" Checked="RbDaily_Checked" Grid.Row="2" Height="18" Width="81" />
+        <RadioButton Name="rbWeekly" Content="Settimanale" HorizontalAlignment="Left" Margin="119,6,0,0"  VerticalAlignment="Top" GroupName="Tipo" Checked="RbWeekly_Checked" Grid.Row="2" Height="18" Width="84"/>
+        <RadioButton Name="rbMonthly" Content="Mensile" HorizontalAlignment="Left" Margin="237,6,0,0"  VerticalAlignment="Top" GroupName="Tipo" Checked="RbMonthly_Checked" Grid.Row="2" Height="18" Width="63"/>
+        <RadioButton Name="rbUnique" Content="Unico" HorizontalAlignment="Left" Margin="338,6,0,0"  VerticalAlignment="Top" GroupName="Tipo" Checked="RbUnique_Checked" Grid.Row="2" Height="18" Width="53"/>
+        <Grid Name="DailyData" Margin="0,29,0,0" Grid.Row="2" >
+            <CheckBox Name="chkRepeat" Visibility="Collapsed" Content="Ripetuto" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="10,4,0,0"/>
+            <Label Content="Cadenza" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="10,27,0,0"/>
+            <TextBox Name="txtCadency" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" PreviewTextInput="NumberValidationTextBox" Margin="212,30,0,0"/>
+            <ComboBox Name="cbCadencyUnit" HorizontalAlignment="Left" Margin="74,25,0,0" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Durata" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="10,60,0,0"/>
+            <TextBox Name="txtLife" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" PreviewTextInput="NumberValidationTextBox" Margin="212,63,0,0"/>
+            <ComboBox Name="cbLifeUnit" HorizontalAlignment="Left" Margin="74,58,0,0" VerticalAlignment="Top" Width="120"/>
+
+        </Grid>
+        <Grid Name="WeeklyData" Margin="0,6,0,3" Grid.Row="3" >
+            <CheckBox Name="chkLun" Content="Lunedi" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="10,4,0,0"/>
+            <CheckBox Name="chkMar" Content="Martedi" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="79,4,0,0"/>
+            <CheckBox Name="chkMer" Content="Mercoledi" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="158,4,0,0"/>
+            <CheckBox Name="chkGio" Content="Giovedi" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="248,4,0,0"/>
+            <CheckBox Name="chkVen" Content="Venerdi" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="325,4,0,0"/>
+            <CheckBox Name="chkSab" Content="Sabato" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="401,4,0,0"/>
+            <CheckBox Name="chkDom" Content="Domenica" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="468,4,0,0"/>
+        </Grid>
+        <Grid Name="MonthlyData"  Margin="0,2,0,109" Grid.Row="4">
+            <Label Content="Giorno del mese" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+            <TextBox Name="txtMonthDay" HorizontalAlignment="Left" Height="23" Margin="119,3,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        </Grid>
+        <Button Content="Conferma" Name="btnConferma" Click="btnConferma_Click" HorizontalAlignment="Left" Margin="686,94,0,0" VerticalAlignment="Top" Width="94" Grid.Row="4"/>
+        <TextBox Name="txtName" HorizontalAlignment="Left" Height="23" Margin="83,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" />
+        <TextBox Name="txtGroup" HorizontalAlignment="Left" Height="23" Margin="316,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Annulla" x:Name="btnAnnulla" Click="BtnAnnulla_Click" HorizontalAlignment="Left" Margin="587,94,0,0" VerticalAlignment="Top" Width="94" Grid.Row="4"/>
+        <Label Content="Nome" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top"/>
+        <Label Content="Gruppo" HorizontalAlignment="Left" Margin="261,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Ora" HorizontalAlignment="Left" Margin="341,3,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

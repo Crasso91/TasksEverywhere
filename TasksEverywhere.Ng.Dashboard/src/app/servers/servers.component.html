@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-12">
+    <button mdbBtn type="button" class="text-center" color="primary" rounded="true"  mdbWavesEffect>
+        <mdb-icon fas icon='sync-alt' (click)="refresh()" ></mdb-icon>
+    </button>
+  </div>
+</div>
+<hr>
+<div class="row">
+<div class="col-md-2" style="height:750px; overflow: auto" *ngIf="(servers | async) && (servers | async).length > 0">
+    <app-loading [context]='context'></app-loading>
+    <div class="col-sm-2 col-md-12" *ngFor="let server of servers | async" style="margin-bottom: 2%">
+      <mdb-card (click)="loadJobs(server.ServerID)" style="cursor: pointer">
+        <!--Card image
+        <mdb-card-img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap"></mdb-card-img>-->
+        <div class="col-md-12">&nbsp;</div>
+        <div class="col-md-12 text-center" >
+            <mdb-icon fas icon='server'  size="5x" class="blue-text" ></mdb-icon>
+        </div>
+        <!--Card content-->
+        <mdb-card-body>
+
+          <!--Title-->
+          <mdb-card-title>
+            <h4 class="text-center">{{ server.Name }}</h4>
+          </mdb-card-title>
+
+          <!--Text-->
+          <mdb-card-text>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                  <span *ngIf="server.IsExecutingCorrectly == true" style="margin-right: 15px">
+                    <mdb-icon fas icon='check' style="color: forestgreen" ></mdb-icon>
+                  </span>
+                  <span *ngIf="server.IsExecutingCorrectly == false" style="margin-right: 15px">
+                      <mdb-icon fas icon='exclamation'  style="color: orangered" ></mdb-icon>
+                  </span>
+                  </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                IP:  {{ server.IP }}
+              </div>
+            </div>
+          </mdb-card-text>
+
+          <!-- <a href="#" mdbBtn color="primary"[routerLink]="['/jobs', server.ServerID]" mdbWavesEffect>Esecuzioni</a> -->
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  </div>
+  <div class="col-md-10">
+    <app-jobs class="col-md-10"></app-jobs>
+  </div>
+</div>

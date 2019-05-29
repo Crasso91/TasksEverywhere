@@ -1,0 +1,129 @@
+
+<div class="row" >
+  <div class="col-md-4">
+      <mdb-card>
+          <!--Card content-->
+          <mdb-card-body>
+            <!--Title-->
+            <mdb-card-title>
+              <h4>Server Totali: {{ (servers | async).length }} </h4>
+            </mdb-card-title>
+          </mdb-card-body>
+        </mdb-card>
+  </div>
+  <div class="col-md-4">
+      <app-loading [context]="jobsContext"></app-loading>
+      <mdb-card>
+          <!--Card content-->
+          <mdb-card-body>
+            <!--Title-->
+            <mdb-card-title>
+              <h4>Job Totali: {{ (jobs | async).length }} </h4>
+            </mdb-card-title>
+          </mdb-card-body>
+        </mdb-card>
+  </div>
+  <div class="col-md-4">
+      <app-loading [context]="callsContext"></app-loading>
+      <mdb-card>
+          <!--Card content-->
+          <mdb-card-body>
+            <!--Title-->
+            <mdb-card-title>
+              <h4>Esecuzioni Totali: {{ (calls | async).length }} </h4>
+            </mdb-card-title>
+          </mdb-card-body>
+        </mdb-card>
+  </div>
+</div>
+<hr style="display: none">
+<div class="row" *ngIf="chartPerHour.length > 0" style="display: none">
+  <div clas="col-md-12" >
+      <div style="display: block">
+          <!-- <canvas mdbChart
+              [chartType]="chartType"
+              [datasets]="chartPerHour"
+              [options]="chartOptions"
+              [legend]="true">
+          </canvas> -->
+        </div>
+  </div>
+</div>
+<hr>
+<div class="row" >
+  <app-loading [context]="statsContext"></app-loading>
+  <div class="col-md-6" >
+    <mdb-card>
+        <!--Card content-->
+        <mdb-card-body>
+          <!--Title-->
+          <mdb-card-title>
+            <h4>Ultime 10 esecuzioni</h4>
+          </mdb-card-title>
+
+          <table mdbTable scope="col" striped="true" hover="true" small="true">
+              <thead>
+                <tr>
+                  <th>ID istanza</th>
+                  <th>Partito alle</th>
+                  <th>Terminato alle</th>
+                  <th>Prossima partenza</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr mdbTableCol *ngFor="let call of (last20Calls | async).Last10Calls ">
+                  <td>{{ call.FireInstenceID }}</td>
+                  <td>{{ call.StartedAt | date:'EEEE d, MMM, y, h:mm a'  }}</td>
+                  <td>{{ call.EndedAt | date:'EEEE d, MMM, y, h:mm a'  }}</td>
+                  <td>{{ call.NextStart | date:'EEEE d, MMM, y, h:mm a'  }}</td>
+                  <td>
+                    <mdb-icon fas icon='check' *ngIf="!call.Error" style="color: forestgreen" ></mdb-icon>
+                    <mdb-icon fas icon='exclamation-triangle' *ngIf="call.Error" style="color: orangered"></mdb-icon>
+                  </td>
+                  <td align="center"><a href="#" mdbBtn color="primary" [routerLink]="['/calls', call.JobID]" mdbWavesEffect><mdb-icon fas icon='info' style="color: white" ></mdb-icon></a></td>
+                </tr>
+              </tbody>
+              </table>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  <div class="col-md-6" >
+    <mdb-card>
+        <!--Card content-->
+        <mdb-card-body>
+          <!--Title-->
+          <mdb-card-title>
+              <h4>Ultime 10 errori</h4>
+          </mdb-card-title>
+          <table   mdbTable scope="col" striped="true" hover="true" small="true">
+          <thead>
+            <tr>
+              <th>Nome Job</th>
+              <th>ID istanza</th>
+              <th>Partito alle</th>
+              <th>Terminato alle</th>
+              <th>Prossima partenza</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr mdbTableCol *ngFor="let call of (last20Calls | async).Last10ErrorsCalls">
+              <td >{{ call.FireInstenceID | date:'EEEE d, MMM, y, h:mm a'  }}</td>
+              <td>{{ call.StartedAt | date:'EEEE d, MMM, y, h:mm a'  }}</td>
+              <td>{{ call.EndedAt | date:'EEEE d, MMM, y, h:mm a'  }}</td>
+              <td>{{ call.NextStart | date:'EEEE d, MMM, y, h:mm a'  }}</td>
+              <td>
+                <mdb-icon fas icon='check' *ngIf="!call.Error" style="color: forestgreen" ></mdb-icon>
+                <mdb-icon fas icon='exclamation-triangle' *ngIf="call.Error" style="color: orangered"></mdb-icon>
+              </td>
+              <td><a class="btn btn-primary" *ngIf="call.Error">Errore</a></td>
+            </tr>
+          </tbody>
+          </table>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+</div>

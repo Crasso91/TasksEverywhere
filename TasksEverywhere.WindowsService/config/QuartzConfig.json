@@ -1,0 +1,109 @@
+/*
+  Struttura .json
+  Jobs : [
+      ### Nel caso in cui si vuole lanciare un job che esegue una linea di comando, VBs o exe ###
+      {
+        $type: Tipologia di job da instaziare, valore fisso : "TasksEverywhere.Quartz.Jobs.Concrete.CustomJob, TasksEverywhere.Quartz" ,
+        Name : Nome del job,
+        Group : Gruppo del job,
+        Description: Descrizione del job,
+        Parameters : [ Lista dei parametri utilizzati alla partenza del job, quelli che Queartz definisce con 'data' del 'jobdetail'
+            {
+              Key : chiave enumeratore assume valori : 0 - Program, 1 - LogLevel 
+              Value : valore della chiave 
+                          - Program un path completo, 
+                          - LogLevel Info,Debug,Error
+            }
+        ],
+        Trigger: [{
+          Period:
+				  1 - Giornaliero,
+          2 - Settimanale,
+				  3 - Mensile,
+				  4 - Annuale,
+				  
+		      Giornaliero:
+			    Task eseguito tutti i giorni. 
+			    Se campo Interval > 0 allora il task è ripeturo ogni Interval (in IntervalUnit) per tutta la durata del Life (in LifeUnit). 
+			    Se campo Interval = 0 allora il task è eseguito una sola volta nell'orario indicato in StartDate. 
+			    I valori accettati di IntervalUnit sono solo 2 e 3. 
+			    Il campo IntervalUnit è obbligatorio.
+			    I valori accettati di LifeUnit sono solo 2 e 3. 
+			    Il campo LifeUnit è obbligatorio.
+		      Settimanale:
+			    è come il giornaliero solo che posso indicare i giorni della settimana dove deve essere eseguito il task.
+		      Mensile:
+			    Task eseguito ogni mese. 
+			    Se campo Interval > 0 allora il task è ripeturo ogni Interval (in IntervalUnit) per tutta la durata del Life (in LifeUnit). 
+			    Se campo Interval = 0 allora il task è eseguito una sola volta nell'orario e nella data indicati in StartDate. 
+			    I valori accettati di IntervalUnit sono solo 4 e 5. 
+			    Il campo IntervalUnit è obbligatorio.
+			    I valori accettati di LifeUnit sono solo 4 e 5. 
+			    Il campo LifeUnit è obbligatorio.
+		      Annuale:
+			    Task eseguito ogni anno. 
+			    Se campo Interval > 0 allora il task è ripeturo ogni Interval (in IntervalUnit) per tutta la durata del Life (in LifeUnit). 
+			    Se campo Interval = 0 allora il task è eseguito una sola volta nell'orario e nella data indicati in StartDate. 
+			    I valori accettati di IntervalUnit sono solo 6 e 7. 
+			    Il campo IntervalUnit è obbligatorio.
+			    I valori accettati di LifeUnit sono solo 6 e 7. 
+			    Il campo LifeUnit è obbligatorio.
+		  
+          Name : nomde del trigger,
+          Group : gruppo del trigger,
+          StartDate: data espressa in yyyy-mm-ddThh:mm:ss.msmsmsm+01:00 (es. 2019-02-25T07:30:00.8026842+01:00) non deve necessariamente
+                     essere successiva ad ORA perchè quartz si occupa di calcolare la prossima partenza in base alla schedulazione,
+          Life : durata di schedulazione del task (espresso in LifeUnit),
+          LifeUnit : unità della durata di schedulazione del task
+						2 - minuti, 
+						3 - ore, 
+						4 - giorni, 
+						5 - settimane, 
+						6 - mesi, 
+						7 - anni,
+          Interval : intervallo di schedualzione tra un'esecuzione ed un'altra (espresso in IntervalUnit),
+          IntervalUnit : unità dell'intervallo di schedualzione tra un'esecuzione ed un'altra
+						2 - minuti, 
+						3 - ore, 
+						4 - giorni, 
+						5 - settimane, 
+						6 - mesi, 
+						7 - anni,
+          WeekDays : Giorni della settimana nel quale deve essere eseguito il task (solo se period è impostato su settimanale) 
+                     Assume i seguenti valori : Sunday = 0, Monday = 1, Tuesday = 2, Wednesday = 3, Thursday = 4, Friday = 5, Saturday = 6
+        }]
+      },
+      ### Nel caso in cui si vuole lanciare un job che istanza un oggetto da una libreria esterna e ne esegue un metodo specifico ###
+      {
+        $type: Tipologia di job da instaziare, valore fisso : "TasksEverywhere.Quartz.Context.Jobs.Concrete.ReflectionJob, TasksEverywhere.Quartz",
+        Name : Nome del job,
+        Group : Gruppo del job,
+        Description: Descrizione del job,
+        Parameters : [ Lista dei parametri utilizzati per trovare, istanziare ed eseguier il metodo della classe
+            {
+              Key : chiave enumeratore assume valori : 0 - Program, 1 - LogLevel, 2 - ReflectionJobData
+              Value : valore della chiave 
+                          - Program un path completo, 
+                          - LogLevel Info,Debug,Error
+                          - ReflectionJobData lista di oggetti 'ReflectionJobData' che rispecchia questa struttura: 
+                              [{
+                                LibraryPath : Path della libreria contenente la classe da istanziare,
+                                ClassName : Nome della classe da instanziare,
+                                ConstructorArgs : Lista di oggetti separati da punto e virgola (;) passati al costruttore al momento dell'istanzaimento della classe (può essere vuoto),
+                                MethodName : Metodo della classe che deve essere eseguito,
+                                MethodArgs : Lista di oggetti separati da punto e virgola (;) passati al metodo al momento dell'invocazione (può essere vuoto)
+                              }]
+            }
+        ],
+        Trigger: [Funziona allo stesso modo del CustomJob]
+      }  
+  ]
+*/
+{
+  "$type": "TasksEverywhere.Quartz.Context.Jobs.Concrete.ScheduledJobs, TasksEverywhere.Quartz",
+  "Jobs": {
+    "$type": "System.Collections.Generic.List`1[[TasksEverywhere.Quartz.Context.Jobs.Abstract.ICustomJob, TasksEverywhere.Quartz]], mscorlib",
+    "$values": [
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+<h1>Elenco Clienti</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!clients"><em>Loading...</em></p>
+
+<table class='table' *ngIf="clients">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>IP</th>
+      <th>App Id</th>
+      <th>App Token</th>
+      <td></td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let client of clients">
+      <td>{{ client.name }}</td>
+      <td>{{ client.ip }}</td>
+      <td>{{ client.appId }}</td>
+      <td>{{ client.appToken }}</td>
+      <td></td>
+      <td><a [routerLink]="['/jobs', client.clientID]" class="btn btn-primary">Jobs</a></td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-4" style="height:750px; overflow: auto" >
+    <app-loading [context]="context"></app-loading>
+    <div class="col-md-12" *ngFor="let job of jobs | async" style="margin-bottom: 2%">
+      <mdb-card (click)="loadCalls(job.JobID)" style="cursor:pointer">
+        <!--Card image
+        <mdb-card-img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap"></mdb-card-img>-->
+        <!--Card content-->
+        <mdb-card-body>
+
+          <!--Title-->
+          <mdb-card-title>
+            <h5>{{job.Key}}</h5>
+          </mdb-card-title>
+
+          <!--Text-->
+          <mdb-card-text>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                  <span *ngIf="job.IsExecutingCorrectly == true" style="margin-right: 15px">
+                    <mdb-icon fas icon='check' style="color: forestgreen" ></mdb-icon>
+                  </span>
+                  <span *ngIf="job.IsExecutingCorrectly == false" style="margin-right: 15px">
+                      <mdb-icon fas icon='exclamation'  style="color: orangered" ></mdb-icon>
+                  </span>
+                  <span *ngIf="job.Executing == true" style="margin-right: 15px">
+                      <mdb-icon fas icon='play' style="color: forestgreen" ></mdb-icon>
+                  </span>
+                  <span *ngIf="job.Executing == false" style="margin-right: 15px">
+                      <mdb-icon fas icon='pause' style="color: orangered" ></mdb-icon>
+                  </span>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                {{job.Description}}
+              </div>
+              <div class="col-md-12" *ngIf="job.LastCall">
+                Iniziata alle:  {{job.LastCall.StartedAt | date:'EEEE d, MMM, y, h:mm a'}} <br />
+                Terminata alle: {{job.LastCall.EndedAt | date:'EEEE d, MMM, y, h:mm a'}} <br />
+                Prossima esecuzione: {{job.LastCall.NextStart | date:'EEEE d, MMM, y, h:mm a'}} <br />
+              </div>
+              <div class="col-md-12" *ngIf="!job.LastCall">Non ancora eseguito</div>
+            </div>
+          </mdb-card-text>
+
+          <!-- <a href="#" mdbBtn color="primary" [routerLink]="['/calls', job.JobID]" mdbWavesEffect>Esecuzioni</a> -->
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <app-calls></app-calls>
+  </div>
+</div>
