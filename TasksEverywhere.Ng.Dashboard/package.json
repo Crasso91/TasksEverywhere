@@ -27,7 +27,7 @@
     "@fortawesome/fontawesome-free": "^5.7.2",
     "@nguniversal/module-map-ngfactory-loader": "^7.1.1",
     "@types/chart.js": "^2.7.48",
-    "ajv": "^6.10.0",
+    "ajv": "^6.12.3",
     "angular-bootstrap-md": "^7.4.3",
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^3.3.7",
